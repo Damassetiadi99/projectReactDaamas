@@ -33,7 +33,7 @@ function Navigation() {
           <div style={{ height: '60px', width: '5px', backgroundColor: '#efc81a' }}></div>
           <div>
             <img
-              src="./assets/image/profile.png"
+              src="../../assets/react.svg"
               alt="profile"
               width="40px"
               style={{ borderRadius: '50%' }}

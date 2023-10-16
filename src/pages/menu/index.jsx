@@ -20,7 +20,7 @@ export default function Menu(){
   message : ""
  })
  const getData =()=>{
-  axios.get('http://localhost:3000/recipe',{headers :{
+  axios.get('https://panicky-worm-mittens.cyclic.app/recipe',{headers :{
       Authorization : `Bearer ${token}`
     }})
     .then((res)=>{
@@ -44,7 +44,7 @@ export default function Menu(){
   },[])
 
   const deleteData = (id)=>{
-    axios.delete(`http://localhost:3000/recipe/${id}`,{headers :{
+    axios.delete(`https://panicky-worm-mittens.cyclic.app/recipe/${id}`,{headers :{
       Authorization : `Bearer ${token}`
     }})
     .then((res)=>{

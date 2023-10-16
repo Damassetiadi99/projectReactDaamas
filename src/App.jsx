@@ -3,6 +3,13 @@ import { Navigate, Route, Routes, BrowserRouter,Link,useParams } from 'react-rou
 import Menu from './pages/menu'
 import InputMenu from './pages/inputMenu' 
 import UpdateMenu from './pages/updateMenu'
+import Login from './pages/login'
+import Register from './pages/register'
+import UpdateProfile from './pages/updateProfile'
+import DetailProfile from './pages/detailProfile'
+import DetailMenu from './pages/detailMenu'
+import LandingPage from './pages/landingPage'
+
 
 function MenuDetail(){
   const {menuId} =useParams()
@@ -19,9 +26,20 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Navigate to="/menu" replace={true} />} />
+        <Route path='/' element={<LandingPage/>} />
         <Route path='/menu' element={<Menu/>} />
         <Route path='/update-menu/:menuId' element={<UpdateMenu/>} />
+        <Route path='/update-profile' element={<UpdateProfile/>} />
+        <Route path='/detail-profile' element={<DetailProfile/>} />
+        <Route path='/detail-menu' element={<DetailMenu/>} />
+
+
+
+
+        <Route path='/login' element={<Login/>} />
+        <Route path='/register' element={<Register/>} />
+
+
 
         <Route path='/menu-detail/:menuId' element={<MenuDetail />} />
         <Route path='/inputMenu' element={<InputMenu />} />
