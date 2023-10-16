@@ -8,9 +8,7 @@ export const login=(data,navigate)=>async(dispatch)=>{
     localStorage.setItem("token",result.data.users.token)
     localStorage.setItem('photo',result.data.users.photo)
    dispatch({payload : result.data.users,type : 'AUTH_LOGIN_SUCCESS'})
-    navigate('/menu')
-
-        
+    navigate('/menu')   
     } catch (error) {
         dispatch({payload : error.response.data.message,type : 'AUTH_LOGIN_FAILED'})
 
