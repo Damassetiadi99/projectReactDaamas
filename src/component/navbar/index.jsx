@@ -2,6 +2,8 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function Navigation() {
+  const userToken = localStorage.getItem('token')
+  
   return (
     <Navbar expand="lg">
       <Navbar.Toggle aria-controls="navbarSupportedContent" />
@@ -28,22 +30,53 @@ function Navigation() {
                   Profile
                 </Nav.Link>
               </Link>
+        
         </Nav>
-        <div className="d-flex gap-3">
-          <div style={{ height: '60px', width: '5px', backgroundColor: '#efc81a' }}></div>
-          <div>
-            <img
-              src="../../assets/react.svg"
-              alt="profile"
-              width="40px"
-              style={{ borderRadius: '50%' }}
-            />
-          </div>
-          <div>
-            <p className="m-0">Damas</p>
-            <p className="m-0 fw-bold">Logout</p>
-          </div>
-        </div>
+
+        {userToken ? (
+              <div className="d-flex gap-3">
+                <div
+                  style={{
+                    height: "60px",
+                    width: "5px",
+                    backgroundColor: "#efc81a",
+                  }}
+                ></div>
+                <Link to={`/edit-profile`}>
+                  <div>
+                    {/* <img
+                      src="../../assets/potoprofil.jpg"
+                      alt="profile"
+                      width="50px"
+                      height="50px"
+                      className="rounded-circle"
+                    /> */}
+                  </div>
+                </Link>
+                <div>
+                  {/* <h5 className="m-0">{profile?.data[0]?.name}</h5> */}
+                  <h5
+                    className="m-0 fw-bold"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      navigate("/");
+                    }}
+                  >
+                    Logout
+                  </h5>
+                </div>
+              </div>
+            ) : (
+              <div className="d-flex gap-4">
+                <Link className="text-decoration-none fw-bold" to="/login">
+                  Login
+                </Link>
+                <Link className="text-decoration-none fw-bold" to="/register">
+                  Register
+                </Link>
+              </div>
+            )}
       </Navbar.Collapse>
     </Navbar>
   );

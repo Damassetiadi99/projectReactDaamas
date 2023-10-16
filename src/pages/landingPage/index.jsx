@@ -12,7 +12,7 @@ import salmon from "../../../src/assets/salmon.png";
 import chickenRisol from "../../../src/assets/chickenRisol.png";
 import coffe from "../../../src/assets/coffe.png";
 
-export default function landingPage  (){
+export default function LandingPage  (){
 
   return (
     <Fragment>

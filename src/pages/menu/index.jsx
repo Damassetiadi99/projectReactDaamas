@@ -7,10 +7,10 @@ import { Bounce, toast, ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navigation from "../../component/navbar";
 import { Container, Row, Col, Form, InputGroup, FormControl, Button } from 'react-bootstrap';
+import Footer from "../../component/footer"
 
 
 
-let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiIxMjMxMzEzMiIsImVtYWlsIjoiZmFocnVAZ21haWwuY29tIiwicGhvdG8iOm51bGwsImNyZWF0ZWRfYXQiOiIyMDIzLTA3LTI2VDAzOjI1OjM5LjU2N1oiLCJpYXQiOjE2OTAzNDU1Mjl9.3ha4VrPRSWbTIJFaJeB-XZAjY7AuusvKm0N6N_LHzrE`
 
 export default function Menu(){
  const [data,setData] = useState(null)
@@ -20,7 +20,8 @@ export default function Menu(){
   message : ""
  })
  const getData =()=>{
-  axios.get('https://panicky-worm-mittens.cyclic.app/recipe',{headers :{
+  const token = localStorage.getItem('token')
+  axios.get('https://rich-blue-scorpion-robe.cyclic.app/recipe',{headers :{
       Authorization : `Bearer ${token}`
     }})
     .then((res)=>{
@@ -44,7 +45,8 @@ export default function Menu(){
   },[])
 
   const deleteData = (id)=>{
-    axios.delete(`https://panicky-worm-mittens.cyclic.app/recipe/${id}`,{headers :{
+    const token = localStorage.getItem('token')
+    axios.delete(`https://rich-blue-scorpion-robe.cyclic.app/recipe/${id}`,{headers :{
       Authorization : `Bearer ${token}`
     }})
     .then((res)=>{
@@ -68,6 +70,7 @@ export default function Menu(){
   }
 
     return(
+      
       <Fragment>
          <ToastContainer
           position="top-center"
@@ -163,7 +166,7 @@ export default function Menu(){
             <div className="d-flex gap-2 my-2">
               {/* <Image
                 className="rounded-circle"
-                src="./assets/image/profile.png"
+                src="../../assets/"
                 alt="Profile"
                 width="40px"
                 height="40px"
@@ -204,6 +207,7 @@ export default function Menu(){
       <a href="/menu-detail">to menu detail</a>
       <Link to={"/menu-detail"}>to menu detail SPA</Link>
       </div>
+      <Footer/>
       </Fragment>
       
     )

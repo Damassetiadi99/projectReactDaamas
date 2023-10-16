@@ -3,13 +3,13 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom'
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "../../component/footer"
+import Navigation from "../../component/navbar";
 
 
-let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiIxMjMxMzEzMiIsImVtYWlsIjoiZmFocnVAZ21haWwuY29tIiwicGhvdG8iOm51bGwsImNyZWF0ZWRfYXQiOiIyMDIzLTA3LTI2VDAzOjI1OjM5LjU2N1oiLCJpYXQiOjE2OTAzNDU1Mjl9.3ha4VrPRSWbTIJFaJeB-XZAjY7AuusvKm0N6N_LHzrE`;
 
 export default function InputMenu() {
   const [photo, setPhoto] = useState(null);
-
   const [inputData, setInputData] = useState({
     title: "",
     ingredients: "",
@@ -24,12 +24,16 @@ export default function InputMenu() {
     bodyFormData.append("title", inputData.title);
     bodyFormData.append("ingredients", inputData.ingredients);
     bodyFormData.append("category_id", inputData.category_id);
-    bodyFormData.append("photo", photo);
+    bodyFormData.append("photo_url", photo);
     console.log(bodyFormData);
+    const token = localStorage.getItem('token')
+    console.log(inputData)
+    console.log(token)
 
-    axios.post("http://localhost:3000/recipe", bodyFormData, {
+    axios.post("https://rich-blue-scorpion-robe.cyclic.app/recipe/recipe", bodyFormData, {
         headers: {
           Authorization: `Bearer ${token}`,
+      
           "Content-Type": "multipart/form-data",
         },
       })
@@ -62,6 +66,7 @@ export default function InputMenu() {
   };
   return (
     <Fragment>
+      <Navigation/>
       <ToastContainer
           position="top-center"
           autoClose={2000}
@@ -107,6 +112,7 @@ export default function InputMenu() {
         </button>
       </form>
     </div>
+    <Footer/>
     </Fragment>
   );
 }
