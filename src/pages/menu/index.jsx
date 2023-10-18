@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState,useCallback } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import Alert from "../../component/alert";
 import "./menu.css"
@@ -19,31 +19,67 @@ export default function Menu(){
   type : "",
   message : ""
  })
- const getData =()=>{
-  const token = localStorage.getItem('token')
-  axios.get('https://rich-blue-scorpion-robe.cyclic.app/recipe',{headers :{
-      Authorization : `Bearer ${token}`
-    }})
-    .then((res)=>{
-      console.log(res)
-      setData(res.data.data)
-      toast.success('get data succes!',{ toastId: "1" })
+ const [searchQuery, setSearchQuery] = useState("");
+ const [currentPage, setCurrentPage] = useState(1);
+ const [totalPage, setTotalPage] = useState(0);
 
-      
-    })
-    .catch((err)=>{
-      console.log(err)
-      toast.error('get data error!')
+ const getData = useCallback(
+   (page) => {
+     const token = localStorage.getItem("token");
+     axios
+       .get(import.meta.env.VITE_BASE_URL + `/recipe`, {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+         params: {
+           page: page,
+           limit: 5,
+           searchBY: "title",
+           search: searchQuery,
+         },
+       })
+       .then((res) => {
+         console.log(res);
+         // toast.success("Get Data Successfully", { toastId: "1" });
+         setData(res.data);
+         setTotalPage(res.data.pagination.totalPage);
+       })
+       .catch((err) => {
+         console.log(err);
+         // toast.error("Recipe Not Found", { toastId: "1" });
+       });
+   },
+   [searchQuery]
+ );
 
-    })
- }
-  useEffect(()=>{
-    getData()
-    
-    setAlertData({...alertData,message:"berhasil get data"})
-    setShowAlert(true)
-  },[])
+ const handleSearchSubmit = async (event) => {
+   event.preventDefault();
+   setCurrentPage(1);
+   getData(1);
+ };
 
+ const handleNext = useCallback(() => {
+   if (currentPage < totalPage) {
+     setCurrentPage((prevPage) => prevPage + 1);
+   }
+ }, [currentPage, totalPage]);
+
+ const handlePrevious = useCallback(() => {
+   if (currentPage > 1) {
+     setCurrentPage((prevPage) => prevPage - 1);
+   }
+ }, [currentPage]);
+
+ const handleSearchChange = useCallback((event) => {
+   setSearchQuery(event.target.value);
+ }, []);
+
+ useEffect(() => {
+   getData(currentPage);
+ }, [getData, currentPage]);
+
+ const nextDisabled = currentPage >= totalPage;
+ const previousDisabled = currentPage === 1;
   const deleteData = (id)=>{
     const token = localStorage.getItem('token')
     axios.delete(`https://rich-blue-scorpion-robe.cyclic.app/recipe/${id}`,{headers :{
@@ -132,12 +168,13 @@ export default function Menu(){
       </Row>
     </Container>
     <Container className="my-5 shadow">
-      {data?.map((item,index)=>{
+      {data?.data?.map((item,index)=>{
         return(
           <div key={index}>
           
           <Row>
         <Col md={4} className="d-flex justify-content-center align-items-center">
+          <Link to={`/detail-menu/${item.id}`}>
           <img
             src={item.photo}
             width={300}
@@ -145,6 +182,7 @@ export default function Menu(){
             alt="menu"
             className="image-menu"
           />
+          </Link>
         </Col>
         <Col md={8}>
           <div>
@@ -204,9 +242,18 @@ export default function Menu(){
       {/* </div> */}
         {/* )
       })} */}
-      <a href="/menu-detail">to menu detail</a>
-      <Link to={"/menu-detail"}>to menu detail SPA</Link>
+      <div className="d-flex justify-content-center gap-5 mb-5">
+      <Button onClick={handlePrevious} variant="warning" className="fw-bold text-white" type="submit">
+                  previous
+                </Button>
+                <p className="text-dark">{data?.pagination?.pageNow}</p> From <p>{data?.pagination?.totalPage}</p>
+                <Button onClick={handleNext} variant="warning" className="fw-bold text-white" type="submit">
+                  next
+                </Button>
+        </div>
+
       </div>
+    
       <Footer/>
       </Fragment>
       

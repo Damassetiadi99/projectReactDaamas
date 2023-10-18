@@ -4,21 +4,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiIxMjMxMzEzMiIsImVtYWlsIjoiZmFocnVAZ21haWwuY29tIiwicGhvdG8iOm51bGwsImNyZWF0ZWRfYXQiOiIyMDIzLTA3LTI2VDAzOjI1OjM5LjU2N1oiLCJpYXQiOjE2OTAzNDU1Mjl9.3ha4VrPRSWbTIJFaJeB-XZAjY7AuusvKm0N6N_LHzrE`;
 
 export default function UpdateMenu() {
   const { menuId } = useParams();
   const [photo, setPhoto] = useState(null);
 
+const navigate = useNavigate()
   const [inputData, setInputData] = useState({
     title: "",
     ingredients: "",
     category_id: "1",
-    photo_url: "",
+    photo: "",
   });
+  
+
+  
   const getData = () => {
+    const token = localStorage.getItem('token')
     axios
-      .get(`http://localhost:3000/recipe/${menuId}`, {
+      .get(`https://rich-blue-scorpion-robe.cyclic.app/recipe/${menuId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,7 +33,7 @@ export default function UpdateMenu() {
           ...inputData,
           title: res.data.data.title,
           ingredients: res.data.data.ingredients,
-          photo_url: res.data.data.photo,
+          photo: res.data.data.photo,
         });
       })
       .catch((err) => {
@@ -49,8 +53,8 @@ export default function UpdateMenu() {
     bodyFormData.append("category_id", inputData.category_id);
     bodyFormData.append("photo", photo);
     console.log(bodyFormData);
-
-    axios.put(`http://localhost:3000/recipe/${menuId}`, bodyFormData, {
+    const token = localStorage.getItem('token')
+    axios.put(`https://rich-blue-scorpion-robe.cyclic.app/recipe/putRecipe/${menuId}`, bodyFormData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -104,7 +108,7 @@ export default function UpdateMenu() {
           className="form-control col-4"
           onChange={onChangePhoto}
           placeholder="photo"/>
-        <img src={inputData.photo_url} width={200} />
+        <img src={inputData.photo} width={200} />
         <button type="submit" className="btn btn-warning">
           Update Menu
         </button>

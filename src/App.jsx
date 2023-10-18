@@ -29,19 +29,11 @@ function App() {
         <Route path='/' element={<LandingPage/>} />
         <Route path='/menu' element={<Menu/>} />
         <Route path='/update-menu/:menuId' element={<UpdateMenu/>} />
-        <Route path='/update-profile' element={<UpdateProfile/>} />
+        <Route path='/update-profile/:id' element={<UpdateProfile/>} />
         <Route path='/detail-profile' element={<DetailProfile/>} />
-        <Route path='/detail-menu' element={<DetailMenu/>} />
-
-
-
-
+        <Route path='/detail-menu/:menuId' element={<DetailMenu/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/register' element={<Register/>} />
-
-
-
-        <Route path='/menu-detail/:menuId' element={<MenuDetail />} />
         <Route path='/inputMenu' element={<InputMenu />} />
         
       </Routes>

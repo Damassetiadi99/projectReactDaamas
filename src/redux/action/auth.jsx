@@ -7,6 +7,8 @@ export const login=(data,navigate)=>async(dispatch)=>{
     const result = await axios.post(import.meta.env.VITE_BASE_URL+`/users/login`,data)
     localStorage.setItem("token",result.data.users.token)
     localStorage.setItem('photo',result.data.users.photo)
+    localStorage.setItem('id',result.data.users.id)
+    localStorage.setItem('username',result.data.users.username)
    dispatch({payload : result.data.users,type : 'AUTH_LOGIN_SUCCESS'})
     navigate('/menu')   
     } catch (error) {

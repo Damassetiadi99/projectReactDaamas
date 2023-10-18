@@ -1,15 +1,41 @@
-import { Fragment, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-
+import React, { useEffect, useState,Fragment } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { BiBookmark, BiLike } from "react-icons/bi";
 import "./detailMenu.css";
-import photo from "../../../src/assets/wagyu.webp";
-// import { detailRecipe } from "./../../../redux/actions/product";
-import { useDispatch, useSelector } from "react-redux";
-// import { LineWave } from "react-loader-spinner";
+// import pict from "../../../src/assets/wagyu.webp";
+
+
+
+
 
 export default function DetailMenu () {
+  const[data,setData] = useState ([])
+  const { menuId } = useParams();
+
+  const getData = () => {
+    const token = localStorage.getItem('token')
+    axios.get(`https://rich-blue-scorpion-robe.cyclic.app/recipe/${menuId}`, {
+      headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setData(res.data.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    console.log(menuId);
+    getData();
+  }, []);
+  
+
 
   return (
     <Fragment>
@@ -27,26 +53,26 @@ export default function DetailMenu () {
                 ></div>
                 <div>
                   <img
-                    src={photo}
+                    src={data?.author_photo}
                     alt="profle"
                     width={50}
                     className="rounded rounded-circle profile-photo"
                   />
                 </div>
                 <div>
-                  {/* <p className="m-0">{data?.data?.author}</p>
-                  <p className="m-0 fw-bold">{data?.data?.category}</p> */}
+                  <p className="m-0">{data?.author}</p>
+                  <p className="m-0 fw-bold">{data?.category}</p>
                 </div>
               </div>
 
               <div>
-                {/* <p className="m-0">
-                  {new Date(data?.data?.create_at).toLocaleDateString("id-ID", {
+                 <p className="m-0"> 
+                  {new Date(data?.create_at).toLocaleDateString("id-ID", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   })}
-                </p> */}
+                </p>
                 <p className="m-0">20 Likes - 2 Comments</p>
               </div>
             </div>
@@ -57,12 +83,12 @@ export default function DetailMenu () {
       <Container>
         <Row>
           <h1 className="fw-bold text-center mb-5 color">
-            {/* {data?.data?.title} */}
+            {data?.title}
           </h1>
           <Col md={12} className="d-flex justify-content-center">
             <img
               className="object-fit-cover rounded main-photo"
-              src={photo}
+              src={data?.photo}
               alt="image"
               width="800px"
               height="450px"
@@ -71,13 +97,13 @@ export default function DetailMenu () {
         </Row>
         <Col md={12} className="my-5">
           <h3 className="fw-semibold">Ingredients</h3>
-          {/* <ul>
-            {data?.data?.ingredients?.split(",").map((ingredient, index) => (
+          <ul>
+            {data?.ingredients?.split(",").map((ingredient, index) => (
               <li key={index} className="py-1">
                 {ingredient.trim()}
               </li>
             ))}
-          </ul> */}
+          </ul>
         </Col>
         <div className="d-flex gap-3 my-5">
           <Button
@@ -101,7 +127,7 @@ export default function DetailMenu () {
           <div className="d-flex my-5 coments">
             <div className="col-md-4 d-flex gap-4 justify-content-center">
               <img
-                src={photo}
+                src={data?.photo}
                 alt="profle"
                 width="40px"
                 className="rounded rounded-circle"
@@ -128,7 +154,7 @@ export default function DetailMenu () {
           <div className="d-flex mb-5 coments">
             <div className="col-md-4 d-flex gap-4 justify-content-center">
               <img
-                src={photo}
+                src={data?.photo}
                 alt="profle"
                 width="40px"
                 className="rounded rounded-circle"
