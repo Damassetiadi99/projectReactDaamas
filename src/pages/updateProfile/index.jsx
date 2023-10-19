@@ -10,17 +10,17 @@ import Footer from "../../component/footer";
 
 
 export default function UpdateProfile() {
-    const {userId} =useParams ()
+  const {userId} =useParams ()
+  const navigate = useNavigate();
+  const [photo, setPhoto] = useState(null);
   const logout = () => {
     localStorage.clear();
     navigate("/login");
   };
-  const navigate = useNavigate();
-  const [photo, setPhoto] = useState(null);
   const [inputData, setInputData] = useState({
     name: "",
     email: "",
-    photo_url: "",
+    photo: "",
   });
 
   const getData = () => {
@@ -37,9 +37,9 @@ export default function UpdateProfile() {
         console.log(res);
         setInputData({
           ...inputData,
-          name: res.data.data.username,
+          usernamename: res.data.data.username,
           email: res.data.data.email,
-          photo_url: res.data.data.photo,
+          photo: res.data.data.photo,
         });
       })
       .catch((err) => {
@@ -54,7 +54,7 @@ export default function UpdateProfile() {
   const postData = (event) => {
     event.preventDefault();
     let bodyFormData = new FormData();
-    bodyFormData.append("name", inputData.name);
+    bodyFormData.append("name", inputData.username);
     bodyFormData.append("email", inputData.email);
     bodyFormData.append("image", photo);
 
@@ -62,7 +62,7 @@ export default function UpdateProfile() {
 
     axios
       .put(
-        import.meta.env.VITE_BASE_URL + `users/${localStorage.getItem("id")}`,
+        import.meta.env.VITE_BASE_URL + `users/${userId}`,
         bodyFormData,
         {
           headers: {
@@ -94,7 +94,7 @@ export default function UpdateProfile() {
     e.target.files[0] &&
       setInputData({
         ...inputData,
-        photo: URL.createObjectURL(e.target.files[0]),
+        photo_url: URL.createObjectURL(e.target.files[0]),
       });
     console.log(e.target.files);
   };
@@ -111,7 +111,7 @@ export default function UpdateProfile() {
             <div className="change-photo d-flex justify-content-center align-items-center flex-column mt-5">
               {localStorage.getItem("photo") !== "null" ? (
                 <Image
-                  src={inputData.photo}
+                  src={inputData?.photo}
                   className="img-fluid"
                   alt="profile"
                   style={{ height: 100, width: 100, borderRadius: "50%" }}
@@ -120,8 +120,8 @@ export default function UpdateProfile() {
                 <Image
                   src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg"
                   alt="profile"
-                  // width="30px"
-                  // height="30px"
+                  width="30px"
+                  height="30px"
                   style={{ height: 100, width: 100, borderRadius: "50%" }}
                 />
               )}

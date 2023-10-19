@@ -133,13 +133,16 @@ export default function Menu(){
           </h2>
         </Col>
         <Col md={8} className="mt-3 mb-5">
-          <Form inline className="d-flex justify-content-center">
+          <Form inline className="d-flex justify-content-center" onSubmit={handleSearchSubmit}>
+          
             <InputGroup className="gap-4">
               <FormControl
                 type="text"
                 className="form-control rounded"
                 placeholder=" Search"
                 aria-label="Search"
+                onChange={handleSearchChange}
+                value={searchQuery}
               />
               <div className="input-group-append">
                 <Button variant="warning" className="fw-bold text-white" type="submit">

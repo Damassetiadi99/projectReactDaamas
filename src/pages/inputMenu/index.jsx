@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Bounce,Slide, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../../component/footer"
 import Navigation from "../../component/navbar";
+import { Container ,Form,Row,Col} from "react-bootstrap";
+import style from "./recipe.css"
 
 
 
@@ -64,11 +66,12 @@ export default function InputMenu() {
   return (
     <Fragment>
       <Navigation/>
-      <ToastContainer
-          position="top-center"
-          autoClose={2000}
+      <Container className="my-5">
+        <ToastContainer
+          position="bottom-center"
+          autoClose={1000}
           hideProgressBar={false}
-          transition={Bounce}
+          transition={Slide}
           newestOnTop
           closeOnClick
           rtl={false}
@@ -76,40 +79,86 @@ export default function InputMenu() {
           draggable
           pauseOnHover
           theme="colored"
-        /> 
-    <div className="container">
-      <h1>Input Menu</h1>
-      <form onSubmit={postData} className="row col-6 gap-2">
-        <input
-          type="text"
-          name="title"
-          value={inputData.title}
-          className="form-control col-4"
-          onChange={onChange}
-          placeholder="title"
         />
-        <input
-          type="text"
-          name="ingredients"
-          value={inputData.ingredients}
-          className="form-control col-4"
-          onChange={onChange}
-          placeholder="ingredients"
-        />
-        <input
-          type="file"
-          name="photo"
-          className="form-control col-4"
-          onChange={onChangePhoto}
-          placeholder="photo"
-        />
-        {photo && <img src={inputData.photo} width={200} />}
-        <button type="submit" className="btn btn-warning">
-          Submit Menu
-        </button>
-      </form>
-    </div>
-    {/* <Footer/> */}
+
+        <Form onSubmit={postData}>
+          <div className="mb-3">
+            <p className="d-flex justify-content-end m-0">Max File 1MB</p>
+            <label
+              className="addphoto w-100"
+              style={{ height: "250px" }}
+              htmlFor="upload-photo"
+            >
+              <div className="input-photo" id="addphotowrapper">
+                {photo && (
+                  <img src={inputData.photo} className="input-photo" />
+                )}
+                <p>Add Photo</p>
+              </div>
+            </label>
+            <input
+              type="file"
+              name="image"
+              id="upload-photo"
+              onChange={onChangePhoto}
+            />
+          </div>
+          <div className="mb-2">
+            <Form.Label htmlFor="formtitle"></Form.Label>
+            <Form.Control
+              type="text"
+              id="formtitle"
+              name="title"
+              value={inputData.title}
+              onChange={onChange}
+              placeholder="Title"
+              style={{ backgroundColor: "#f6f5f4" }}
+            />
+          </div>
+          <div className="mb-2">
+            <Form.Label htmlFor="formingredients"></Form.Label>
+            <Form.Control
+              as="textarea"
+              id="formingredients"
+              name="ingredients"
+              value={inputData.ingredients}
+              onChange={onChange}
+              rows={5}
+              placeholder="Ingredients"
+              style={{ backgroundColor: "#f6f5f4", height: "200px" }}
+            />
+          </div>
+          <Row>
+            <Col md={3} className="mt-4">
+              <Form.Select
+                className="form-select form-select-sm py-3 bg-body-tertiary"
+                aria-label="select example"
+                value={inputData.category_id}
+                onChange={onChange}
+                name="category_id"
+              >
+                <option value="" disabled>
+                  Category
+                </option>
+                <option value="1">Main Course</option>
+                <option value="2">Dessert</option>
+                <option value="3">Appetizer</option>
+              </Form.Select>
+            </Col>
+          </Row>
+          <div className="my-5 d-flex justify-content-center">
+            <button
+              type="submit"
+              className="border border-0 py-2 px-5 fw-bold text-white rounded"
+              style={{ backgroundColor: " #efc81a" }}
+            >
+              Post
+            </button>
+          </div>
+        </Form>
+      </Container>
+      <Footer/>
     </Fragment>
   );
-}
+};
+

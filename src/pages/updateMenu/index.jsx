@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+// import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 export default function UpdateMenu() {
   const { menuId } = useParams();
   const [photo, setPhoto] = useState(null);
 
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const [inputData, setInputData] = useState({
     title: "",
     ingredients: "",
     category_id: "1",
     photo: "",
   });
-  
-
-  
   const getData = () => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token");
     axios
       .get(`https://rich-blue-scorpion-robe.cyclic.app/recipe/${menuId}`, {
         headers: {
@@ -53,13 +49,18 @@ const navigate = useNavigate()
     bodyFormData.append("category_id", inputData.category_id);
     bodyFormData.append("photo", photo);
     console.log(bodyFormData);
-    const token = localStorage.getItem('token')
-    axios.put(`https://rich-blue-scorpion-robe.cyclic.app/recipe/putRecipe/${menuId}`, bodyFormData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
+    const token = localStorage.getItem("token");
+    axios
+      .put(
+        `https://rich-blue-scorpion-robe.cyclic.app/recipe/putRecipe/${menuId}`,
+        bodyFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         navigate("/menu");
@@ -78,7 +79,7 @@ const navigate = useNavigate()
     e.target.files[0] &&
       setInputData({
         ...inputData,
-        photo_url: URL.createObjectURL(e.target.files[0]),
+        photo: URL.createObjectURL(e.target.files[0]),
       });
     console.log(e.target.files);
   };
@@ -107,7 +108,8 @@ const navigate = useNavigate()
           name="photo"
           className="form-control col-4"
           onChange={onChangePhoto}
-          placeholder="photo"/>
+          placeholder="photo"
+        />
         <img src={inputData.photo} width={200} />
         <button type="submit" className="btn btn-warning">
           Update Menu
