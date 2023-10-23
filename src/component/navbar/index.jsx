@@ -1,10 +1,11 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Navigation() {
   const [profile, setprofile] = useState([]);
+const navigate = useNavigate()
 
   const token = localStorage.getItem("token");
   const id = localStorage.getItem("id");
@@ -82,7 +83,7 @@ function Navigation() {
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   localStorage.removeItem("token");
-                  navigate("/");
+                  navigate("/login");
                 }}
               >
                 Logout

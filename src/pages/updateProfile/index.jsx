@@ -10,7 +10,8 @@ import Footer from "../../component/footer";
 
 
 export default function UpdateProfile() {
-  const {userId} =useParams ()
+  const id =localStorage.getItem('id')
+  console.log(id)
   const navigate = useNavigate();
   const [photo, setPhoto] = useState(null);
   const logout = () => {
@@ -18,15 +19,16 @@ export default function UpdateProfile() {
     navigate("/login");
   };
   const [inputData, setInputData] = useState({
-    name: "",
+    username: "",
     email: "",
-    photo: "",
+    photo: ""
   });
 
   const getData = () => {
     axios
       .get(
-        import.meta.env.VITE_BASE_URL + `users/${userId}`,
+       `https://rich-blue-scorpion-robe.cyclic.app/users/${id}`,
+        // import.meta.env.VITE_BASE_URL + `users/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,7 +39,7 @@ export default function UpdateProfile() {
         console.log(res);
         setInputData({
           ...inputData,
-          usernamename: res.data.data.username,
+          username: res.data.data.username,
           email: res.data.data.email,
           photo: res.data.data.photo,
         });
@@ -54,26 +56,28 @@ export default function UpdateProfile() {
   const postData = (event) => {
     event.preventDefault();
     let bodyFormData = new FormData();
-    bodyFormData.append("name", inputData.username);
+    bodyFormData.append("username", inputData.username);
     bodyFormData.append("email", inputData.email);
-    bodyFormData.append("image", photo);
+    bodyFormData.append("photo", photo);
 
     console.log(bodyFormData);
 
     axios
       .put(
-        import.meta.env.VITE_BASE_URL + `users/${userId}`,
+        ` https://rich-blue-scorpion-robe.cyclic.app/users/putUser/${id}`,
+        // import.meta.env.VITE_BASE_URL + `users/${userId}`,
         bodyFormData,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       )
       .then((res) => {
         console.log(res);
         logout();
-        navigate("/menu");
+        navigate("/login");
         toast.success("Users Updated");
       })
       .catch((err) => {
@@ -94,7 +98,7 @@ export default function UpdateProfile() {
     e.target.files[0] &&
       setInputData({
         ...inputData,
-        photo_url: URL.createObjectURL(e.target.files[0]),
+        photo: URL.createObjectURL(e.target.files[0]),
       });
     console.log(e.target.files);
   };
@@ -111,7 +115,7 @@ export default function UpdateProfile() {
             <div className="change-photo d-flex justify-content-center align-items-center flex-column mt-5">
               {localStorage.getItem("photo") !== "null" ? (
                 <Image
-                  src={inputData?.photo}
+                  src={inputData.photo}
                   className="img-fluid"
                   alt="profile"
                   style={{ height: 100, width: 100, borderRadius: "50%" }}
@@ -138,7 +142,7 @@ export default function UpdateProfile() {
               </a>
             </label>
             <p className="text-center fw-bold fs-4">
-              {localStorage.getItem("username")}
+              {/* {localStorage.getItem("username")} */}
             </p>
             <div className="d-flex justify-content-center align-items-center mb-5">
               <Row>
@@ -148,9 +152,9 @@ export default function UpdateProfile() {
                       Name
                     </label>
                     <input
-                      id="name"
+                 
                       type="text"
-                      name="name"
+                      name="username"
                       className="form-control border-warning"
                       placeholder="Enter Name"
                       value={inputData.username}
@@ -162,8 +166,8 @@ export default function UpdateProfile() {
                       Email
                     </label>
                     <input
-                      id="email"
-                      type="email"
+                     
+                      type="text"
                       name="email"
                       className="form-control border-warning"
                       placeholder="Enter Email Address"
