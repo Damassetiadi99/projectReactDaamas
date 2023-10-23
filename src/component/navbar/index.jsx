@@ -35,7 +35,7 @@ const navigate = useNavigate()
     <Navbar expand="lg">
       <Navbar.Toggle aria-controls="navbarSupportedContent" />
       <Navbar.Collapse id="navbarSupportedContent">
-        <Nav className="me-auto mb-2 mb-lg-0">
+        <Nav className="me-auto mb-2 mb-lg-0 gap-4">
           <Link to="/menu" className="text-decoration-none fw-bold fs-5">
             <Nav.Link as="div" style={{ color: "#2E266F" }}>
               Home

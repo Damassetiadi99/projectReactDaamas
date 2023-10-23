@@ -196,7 +196,7 @@ export default function Menu() {
           </Col>
         </Row>
       </Container>
-      <Container className="my-5 shadow">
+      <Container className="my-5 shadow border-radius-2" >
         {data?.data?.map((item, index) => {
           return (
             <div key={index}>

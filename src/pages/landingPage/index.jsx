@@ -11,6 +11,9 @@ import burger from "../../../src/assets/burger.png";
 import salmon from "../../../src/assets/salmon.png";
 import chickenRisol from "../../../src/assets/chickenRisol.png";
 import coffe from "../../../src/assets/coffe.png";
+import cake from "../../../src/assets/coffeCake.png"
+import salad from "../../../src/assets/salad india.png"
+import kari from "../../../src/assets/kari.png"
 
 export default function LandingPage  (){
 
@@ -182,6 +185,63 @@ export default function LandingPage  (){
                   <h5 className="text-dark fw-bold">
                     Chiken <br />
                     Kare
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col md={4} className="d-flex justify-content-center mb-5">
+            <div data-aos="zoom-in" data-aos-duration="3000">
+              <div className="position-relative">
+                <img
+                  src={salad}
+                  alt="new"
+                  width="300px"
+                  height="300px"
+                  className="object-fit-cover rounded"
+                />
+                <div className="title">
+                  <h5 className="text-dark fw-bold">
+                    Bomb <br />
+                    Chiken
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col md={4} className="d-flex justify-content-center mb-5">
+            <div data-aos="zoom-in" data-aos-duration="3000">
+              <div className="position-relative">
+                <img
+                  src={cake}
+                  alt="new"
+                  width="300px"
+                  height="300px"
+                  className="object-fit-cover rounded"
+                />
+                <div className="title">
+                  <h5 className="text-dark fw-bold">
+                    Bomb <br />
+                    Chiken
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col md={4} className="d-flex justify-content-center mb-5">
+            <div data-aos="zoom-in" data-aos-duration="3000">
+              <div className="position-relative">
+                <img
+                  src={kari}
+                  alt="new"
+                  width="300px"
+                  height="300px"
+                  className="object-fit-cover rounded"
+                />
+                <div className="title">
+                  <h5 className="text-dark fw-bold">
+                    Bomb <br />
+                    Chiken
                   </h5>
                 </div>
               </div>
