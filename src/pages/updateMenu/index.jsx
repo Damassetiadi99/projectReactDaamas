@@ -85,7 +85,7 @@ export default function UpdateMenu() {
   };
   return (
     <div className="container">
-      <h1>Input Menu</h1>
+      <h1 className="text-align-center">Update Recipe </h1>
       <form onSubmit={postData} className="row col-6 gap-2">
         <input
           type="text"
