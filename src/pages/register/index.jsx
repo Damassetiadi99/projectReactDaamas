@@ -95,7 +95,7 @@ export default function Register() {
               Already have an account?
               <span>
                 <Link to="/login" className="text-decoration-none colors">
-                  Log In
+                  Login
                 </Link>
               </span>
             </p>
