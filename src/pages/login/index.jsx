@@ -41,7 +41,9 @@ export default function Login(){
                         <input type="email" name='email' value={inputData.email} className='form-control col-4 mb-3' onChange  ={onChange} placeholder='Email' />
                         <input type="password" name='password' value={inputData.password} className='form-control col-4 mb-3' onChange={onChange} placeholder='Password' />
                         <Form.Group className="my-3 form-check">
-                            <Form.Check type="checkbox" label="I agree to terms and conditions" checked={''} onChange={''} />
+                            <Form.Check type="checkbox" label="I agree to terms and conditions" 
+                            // checked={''} onChange={''} 
+                            />
                         </Form.Group>
                         <Button type="submit" variant="warning" className="w-100 fw-semibold text-white">
                             Login
