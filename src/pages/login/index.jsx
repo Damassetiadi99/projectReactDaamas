@@ -49,7 +49,7 @@ export default function Login(){
                         <p className="mt-3">
                             Already have an account?
                             <span>
-                                <Link to="/pages/menu" className="text-decoration-none colors">Log In</Link>
+                                <Link to="/pages/register" className="text-decoration-none colors">register</Link>
                             </span>
                         </p>
                     </form>
