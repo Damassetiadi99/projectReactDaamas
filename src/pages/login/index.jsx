@@ -35,8 +35,8 @@ export default function Login(){
                     <div className="mt-5 text-center">
                         <img src={logo}/>
                         <h4 className="my-3 fw-bold text-warning">Login</h4>
-                        <p>login in into your existing account</p>
-                    </div>
+                        <p className="text-align-center">login in into your existing account</p>
+                    </div> 
                     <form onSubmit={postData} className='my-3'>
                         <input type="email" name='email' value={inputData.email} className='form-control col-4 mb-3' onChange  ={onChange} placeholder='Email' />
                         <input type="password" name='password' value={inputData.password} className='form-control col-4 mb-3' onChange={onChange} placeholder='Password' />
