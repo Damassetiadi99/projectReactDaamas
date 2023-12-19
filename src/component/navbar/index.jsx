@@ -32,7 +32,7 @@ const navigate = useNavigate()
   }, []);
 
   return (
-    <Navbar expand="lg">
+    <Navbar expand="lg" fixed="top">
       <Navbar.Toggle aria-controls="navbarSupportedContent" />
       <Navbar.Collapse id="navbarSupportedContent">
         <Nav className="me-auto mb-2 mb-lg-0 gap-4">

@@ -6,6 +6,7 @@ import "./menu.css";
 import { Bounce, toast, ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navigation from "../../component/navbar";
+import { Spinner } from "react-bootstrap";
 import {
   Container,
   Row,
@@ -27,10 +28,13 @@ export default function Menu() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getData = useCallback(
     (page) => {
+      setIsLoading(true);
       const token = localStorage.getItem("token");
+      setIsLoading(true);
       axios
         .get(import.meta.env.VITE_BASE_URL + `/recipe`, {
           headers: {
@@ -52,6 +56,9 @@ export default function Menu() {
         .catch((err) => {
           console.log(err);
           // toast.error("Recipe Not Found", { toastId: "1" });
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     },
     [searchQuery]
@@ -197,6 +204,16 @@ export default function Menu() {
         </Row>
       </Container>
       <Container className="my-5 shadow border-radius-2" >
+
+      {/* {isLoading ? (
+          <Spinner animation="border" role="status" className="mt-5">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) : (
+          data?.data?.map((item, index) => (
+            // ... (existing code)
+          ))
+        )} */}
         {data?.data?.map((item, index) => {
           return (
             <div key={index}>
@@ -266,24 +283,9 @@ export default function Menu() {
         })}
       </Container>
       <div className="items-center">
-        <Link to={"/inputmenu"}> Input Menu</Link>
-        {showAlert && (
+                {showAlert && (
           <Alert type={alertData.type} message={alertData.message} />
         )}
-        {/* <h1>Menu</h1>
-      {data?.map((item,index)=>{
-        return(
-          <div key={item.id} onClick={()=>console.log(item.id)}>
-            <img src={item.photo} height={100}/>
-            <p>{item.title}</p>
-            <Link to={`/update-menu/${item.id}`}>
-                    <button className="btn btn-primary">update</button>
-                </Link>
-            <button className="btn btn-danger" onClick={()=>deleteData(item.id)}>Delete</button> */}
-
-        {/* </div> */}
-        {/* )
-      })} */}
         <div className="d-flex justify-content-center gap-5 mb-5">
           <Button
             onClick={handlePrevious}

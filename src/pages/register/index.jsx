@@ -6,6 +6,7 @@ import { Bounce, toast, ToastContainer } from "react-toastify";
 
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../redux/action/auth";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -27,9 +28,15 @@ export default function Register() {
       [e.target.name]: e.target.value,
     });
   };
+  const handleCheckboxChange = (e) => {
+    setIsCheckboxChecked(e.target.checked);
+  };
   const postData =  async(e) => {
     e.preventDefault();
-    console.log(inputData);
+    if (!isCheckboxChecked) {
+      alert("Please agree to the terms and conditions.");
+      return;
+    }
     try {
         await dispatch(register(inputData, navigate));
       } catch (error) {
@@ -80,8 +87,8 @@ export default function Register() {
               <Form.Check
                 type="checkbox"
                 label="I agree to terms and conditions"
-                // checked={isChecked}
-                // onChange={handleCheckboxChange}
+                checked={isChecked}
+                onChange={handleCheckboxChange}
               />
             </Form.Group>
             <Button

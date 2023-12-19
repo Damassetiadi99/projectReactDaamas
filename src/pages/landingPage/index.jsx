@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from "react";
-// import AOS from "aos";
-// import "aos/dist/aos.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./landing.css";
 import Navigation from "../../component/navbar";
 import { Container, Row, Col, Button } from "react-bootstrap";
@@ -16,7 +16,14 @@ import salad from "../../../src/assets/salad india.png"
 import kari from "../../../src/assets/kari.png"
 
 export default function LandingPage  (){
-
+  
+    useEffect(() => {
+    
+      AOS.init({
+        duration: 3000, 
+      });
+    }, []); 
+  
   return (
     <Fragment>
       <div className="box-yellow d-none d-md-block"></div>
