@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState, useCallback } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Alert from "../../component/alert";
 import "./menu.css";
-import { Bounce, toast, ToastContainer, Zoom } from "react-toastify";
+import {toast, ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navigation from "../../component/navbar";
 import { Spinner } from "react-bootstrap";
@@ -139,7 +139,7 @@ export default function Menu() {
         pauseOnHover
         theme="colored"
       />
-     
+
       <Navigation />
       <Container className="my-5">
         <Row>
@@ -202,19 +202,13 @@ export default function Menu() {
           </Col>
         </Row>
       </Container>
-      <Container className="my-5 shadow border-radius-2" >
-
-      {/* {isLoading ? (
+      <Container className="my-5 shadow border-radius-2">
+        {isLoading ? (
           <Spinner animation="border" role="status" className="mt-5">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         ) : (
           data?.data?.map((item, index) => (
-            // ... (existing code)
-          ))
-        )} */}
-        {data?.data?.map((item, index) => {
-          return (
             <div key={index}>
               <Row>
                 <Col
@@ -227,14 +221,14 @@ export default function Menu() {
                       width={300}
                       height={350}
                       alt="menu"
-                      className="image-menu border-radius-3 shadow-2"
+                      className="rounded-3 shadow-2"
                     />
                   </Link>
                 </Col>
                 <Col md={8}>
                   <div className="my-5">
                     <h5 className="fw-bold">{item.title}</h5>
-                    <p className="fs-5 m-0">Ingredients</p>
+                    <p className="fs-5 m-0 fw-bold">Ingredients :</p>
                     <ul>
                       {item.ingredients.split(",").map((ingredient, index) => (
                         <li key={index}>{ingredient.trim()}</li>
@@ -247,35 +241,33 @@ export default function Menu() {
                       10 Likes - 12 Comments - 3 Bookmarks
                     </Button>
                     <div className="d-flex gap-2 my-2">
-
                       <p className="m-0 d-flex align-items-center fw-semibold">
                         {item.author}
                       </p>
                     </div>
-            
-              <div className="md-6 d-flex justify-content-space-between gap-4 my-4 ml-3">
-                <Link to={`/update-menu/${item.id}`}>
-                  <button className="btn btn-primary" md={3}>
-                    Edit Menu
-                  </button>
-                </Link>
-                <button
-                  className="btn btn-danger"
-                  md={4}
-                  onClick={() => deleteData(item.id)}
-                >
-                 Delete Menu
-                </button>
-              </div>
+                    <div className="md-6 d-flex justify-content-space-between gap-4 my-4 ml-3">
+                      <Link to={`/update-menu/${item.id}`}>
+                        <button className="btn btn-primary" md={3}>
+                          Edit Menu
+                        </button>
+                      </Link>
+                      <button
+                        className="btn btn-danger"
+                        md={4}
+                        onClick={() => deleteData(item.id)}
+                      >
+                        Delete Menu
+                      </button>
+                    </div>
                   </div>
                 </Col>
               </Row>
             </div>
-          );
-        })}
+          ))
+        )}
       </Container>
       <div className="items-center">
-                {showAlert && (
+        {showAlert && (
           <Alert type={alertData.type} message={alertData.message} />
         )}
         <div className="d-flex justify-content-center gap-5 mb-5">
@@ -284,6 +276,7 @@ export default function Menu() {
             variant="warning"
             className="fw-bold text-white"
             type="submit"
+            disabled={previousDisabled}
           >
             previous
           </Button>
@@ -294,6 +287,7 @@ export default function Menu() {
             variant="warning"
             className="fw-bold text-white"
             type="submit"
+            disabled={nextDisabled}
           >
             next
           </Button>

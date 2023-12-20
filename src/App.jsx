@@ -12,15 +12,6 @@ import LandingPage from './pages/landingPage'
 import "aos/dist/aos.css";
 
 
-// function MenuDetail(){
-//   const {menuId} =useParams()
-//   return(
-//     <>
-//     <h1>Menu Detail ke {menuId}</h1>
-//     <Link to={-1}>go to back</Link>
-//     </>
-//   )
-// }
 function App() {
 
   return (

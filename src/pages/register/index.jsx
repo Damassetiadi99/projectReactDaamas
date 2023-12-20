@@ -1,9 +1,9 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button,InputGroup } from "react-bootstrap";
 import React, { useState } from "react";
 import logo from "../../../src/assets/logologin.png";
 import { useDispatch,useSelector } from "react-redux";
-import { Bounce, toast, ToastContainer } from "react-toastify";
-
+import {  toast, ToastContainer } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../redux/action/auth";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,14 +14,16 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-
+  
   const [inputData, setInputData] = useState({
     username: "",
     email: "",
     password: "",
   });
   const { isError} = useSelector((state) => state.authReducer);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const onChange = (e) => {
     setInputData({
@@ -31,6 +33,9 @@ export default function Register() {
   };
   const handleCheckboxChange = (e) => {
     setIsCheckboxChecked(e.target.checked);
+  };
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
   const postData =  async(e) => {
     e.preventDefault();
@@ -76,14 +81,24 @@ export default function Register() {
               onChange={onChange}
               placeholder="Email"
             />
-            <input
-              type="password"
-              name="password"
-              value={inputData.password}
-              className="form-control col-4 mb-3"
-              onChange={onChange}
-              placeholder="Password"
-            />
+         
+         <InputGroup className="mb-3">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={inputData.password}
+                className="form-control"
+                onChange={onChange}
+                placeholder="Password"
+              />
+              <Button
+                variant="light"
+                onClick={toggleShowPassword}
+                style={{ border: "none", outline: "none" }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </Button>
+            </InputGroup>
             <Form.Group className="my-3 form-check">
               <Form.Check
                 type="checkbox"
