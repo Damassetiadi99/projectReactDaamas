@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   const [inputData, setInputData] = useState({
     username: "",
@@ -87,7 +88,7 @@ export default function Register() {
               <Form.Check
                 type="checkbox"
                 label="I agree to terms and conditions"
-                checked={isChecked}
+                checked={isCheckboxChecked}
                 onChange={handleCheckboxChange}
               />
             </Form.Group>

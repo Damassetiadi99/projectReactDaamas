@@ -32,7 +32,6 @@ export default function Menu() {
 
   const getData = useCallback(
     (page) => {
-      setIsLoading(true);
       const token = localStorage.getItem("token");
       setIsLoading(true);
       axios
@@ -49,13 +48,13 @@ export default function Menu() {
         })
         .then((res) => {
           console.log(res);
-          // toast.success("Get Data Successfully", { toastId: "1" });
+          toast.success("Get Data Successfully", { toastId: "1" });
           setData(res.data);
           setTotalPage(res.data.pagination.totalPage);
         })
         .catch((err) => {
           console.log(err);
-          // toast.error("Recipe Not Found", { toastId: "1" });
+          toast.error("Recipe Not Found", { toastId: "1" });
         })
         .finally(() => {
           setIsLoading(false);
@@ -140,7 +139,7 @@ export default function Menu() {
         pauseOnHover
         theme="colored"
       />
-      {/* html rb */}
+     
       <Navigation />
       <Container className="my-5">
         <Row>
@@ -248,18 +247,12 @@ export default function Menu() {
                       10 Likes - 12 Comments - 3 Bookmarks
                     </Button>
                     <div className="d-flex gap-2 my-2">
-                      {/* <Image
-                className="rounded-circle"
-                src="../../assets/"
-                alt="Profile"
-                width="40px"
-                height="40px"
-              /> */}
+
                       <p className="m-0 d-flex align-items-center fw-semibold">
                         {item.author}
                       </p>
                     </div>
-                    
+            
               <div className="md-6 d-flex justify-content-space-between gap-4 my-4 ml-3">
                 <Link to={`/update-menu/${item.id}`}>
                   <button className="btn btn-primary" md={3}>
@@ -277,7 +270,6 @@ export default function Menu() {
                   </div>
                 </Col>
               </Row>
-
             </div>
           );
         })}
