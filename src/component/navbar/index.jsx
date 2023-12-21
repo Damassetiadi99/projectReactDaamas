@@ -32,10 +32,12 @@ const navigate = useNavigate()
   }, []);
 
   return (
-    <Navbar expand="lg" fixed="top">
+    <Navbar expand="lg" fixed="top" style={
+      {backgroundColor: "#efc81a"}
+    }>
       <Navbar.Toggle aria-controls="navbarSupportedContent" />
       <Navbar.Collapse id="navbarSupportedContent">
-        <Nav className="me-auto mb-2 mb-lg-0 gap-4">
+        <Nav className="me-auto mb-2 mb-lg-0 gap-5">
           <Link to="/menu" className="text-decoration-none fw-bold fs-5">
             <Nav.Link as="div" style={{ color: "#2E266F" }}>
               Home
@@ -91,7 +93,7 @@ const navigate = useNavigate()
             </div>
           </div>
         ) : (
-          <div className="d-flex gap-4">
+          <div className="d-flex gap-5">
             <Link className="text-decoration-none fw-bold" to="/login">
               Login
             </Link>
