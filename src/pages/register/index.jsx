@@ -49,6 +49,7 @@ export default function Register() {
         toast.error(isError || "Internal server error");
       }
   };
+  console.log(postData)
   
 
 
@@ -99,7 +100,7 @@ export default function Register() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </Button>
             </InputGroup>
-            <Form.Group className="my-3 form-check">
+            <Form.Group className="my-3 form-check" style={{ marginLeft: '-27px' }}>
               <Form.Check
                 type="checkbox"
                 label="I agree to terms and conditions"

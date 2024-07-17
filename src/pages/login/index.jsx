@@ -54,7 +54,7 @@ export default function Login() {
           <div className="mt-5 text-center">
             <img src={logo} />
             <h4 className="my-3 fw-bold text-warning">Login</h4>
-            <p className="text-align-center">
+            <p className="text-align-center fw-bold">
               login in into your existing account
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function Login() {
               </Button>
             </InputGroup>
 
-            <Form.Group className="my-3 form-check">
+            <Form.Group className="my-3 form-check" style={{ marginLeft: '-27px' }}>
               <Form.Check
                 type="checkbox"
                 label="I agree to terms and conditions"

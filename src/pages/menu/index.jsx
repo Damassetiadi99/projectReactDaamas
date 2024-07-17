@@ -21,6 +21,7 @@ import Footer from "../../component/footer";
 export default function Menu() {
   const [data, setData] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [originalData, setOriginalData] = useState(null);
   const [alertData, setAlertData] = useState({
     type: "",
     message: "",
@@ -29,6 +30,8 @@ export default function Menu() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortOrder, setSortOrder] = useState("desc"); 
+
 
   const getData = useCallback(
     (page) => {
@@ -50,6 +53,7 @@ export default function Menu() {
           console.log(res);
           toast.success("Get Data Successfully", { toastId: "1" });
           setData(res.data);
+          setOriginalData(res.data)
           setTotalPage(res.data.pagination.totalPage);
         })
         .catch((err) => {
@@ -62,6 +66,16 @@ export default function Menu() {
     },
     [searchQuery]
   );
+
+  const sortDataByDate = () => {
+    const sortedData = [...data.data].sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+      return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+    });
+    setData({ ...data, data: sortedData });
+  };
+
 
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
@@ -181,7 +195,8 @@ export default function Menu() {
       <Container className="d-flex justify-content-space-between">
         <Row>
           <Col md={3} className="mb-2">
-            <Button className="fw-bold text-white" variant="warning">
+            <Button className="fw-bold text-white" variant="warning"
+            onClick={sortDataByDate}>
               New
             </Button>
           </Col>

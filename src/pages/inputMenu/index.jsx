@@ -9,7 +9,6 @@ import { Container ,Form,Row,Col} from "react-bootstrap";
 import style from "./recipe.css"
 
 
-
 export default function InputMenu() {
   const [photo, setPhoto] = useState(null);
   const [inputData, setInputData] = useState({
@@ -39,7 +38,7 @@ export default function InputMenu() {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res);  
         setTimeout(()=>{
           navigate('/menu');
         },2000 )
