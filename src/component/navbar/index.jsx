@@ -48,7 +48,7 @@ const navigate = useNavigate()
             </Nav.Link>
           </Link>
           <Link
-            to={`/update-profile/${id}`}
+            to="/login"
             className="text-decoration-none fw-bold fs-5"
           >
             <Nav.Link as="div" style={{ color: "#2E266F" }}>
