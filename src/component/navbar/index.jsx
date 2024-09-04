@@ -2,6 +2,8 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link, useParams,useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./navbar.css";
+
 
 function Navigation() {
   const [profile, setprofile] = useState([]);
@@ -18,16 +20,13 @@ const navigate = useNavigate()
         },
       })
       .then((res) => {
-        console.log(res);
         setprofile(res.data);
       })
       .catch((err) => {
-        console.log(err);
       });
   };
 
   useEffect(() => {
-    console.log(id);
     getData();
   }, []);
 
@@ -38,14 +37,14 @@ const navigate = useNavigate()
       <Navbar.Toggle aria-controls="navbarSupportedContent" />
       <Navbar.Collapse id="navbarSupportedContent">
         <Nav className="me-auto mb-2 mb-lg-0 gap-5">
-          <Link to="/menu" className="text-decoration-none fw-bold fs-5">
+          <Link to="/register" className="text-decoration-none fw-bold fs-5">
             <Nav.Link as="div" style={{ color: "#2E266F" }}>
-              Home
+              Register
             </Nav.Link>
           </Link>
-          <Link to="/inputMenu" className="text-decoration-none fw-bold fs-5">
+          <Link to="/login" className="text-decoration-none fw-bold fs-5">
             <Nav.Link as="div" style={{ color: "#2E266F" }}>
-              Add Recipe
+              Login
             </Nav.Link>
           </Link>
           <Link
@@ -53,7 +52,7 @@ const navigate = useNavigate()
             className="text-decoration-none fw-bold fs-5"
           >
             <Nav.Link as="div" style={{ color: "#2E266F" }}>
-              Profile
+              Search Menu
             </Nav.Link>
           </Link>
         </Nav>
@@ -94,12 +93,12 @@ const navigate = useNavigate()
           </div>
         ) : (
           <div className="d-flex gap-5">
-            <Link className="text-decoration-none fw-bold" to="/login">
+            {/* <Link className="text-decoration-none fw-bold" to="/login">
               Login
             </Link>
             <Link className="text-decoration-none fw-bold" to="/register">
               Register
-            </Link>
+            </Link> */}
           </div>
         )}
       </Navbar.Collapse>

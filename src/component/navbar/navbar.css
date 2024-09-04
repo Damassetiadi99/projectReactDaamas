@@ -1,0 +1,12 @@
+.nav-link {
+    text-decoration: none; /* Menghilangkan garis bawah default */
+    color: #2E266F; /* Warna teks */
+    font-weight: bold; /* Font tebal */
+    font-size: 1.25rem; /* Ukuran font */
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline; /* Menambahkan garis bawah saat hover */
+    color: #FFFFFF; /* Warna teks putih saat hover */
+  }
+  

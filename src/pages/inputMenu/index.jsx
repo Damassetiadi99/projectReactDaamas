@@ -26,10 +26,7 @@ export default function InputMenu() {
     bodyFormData.append("ingredients", inputData.ingredients);
     bodyFormData.append("category_id", inputData.category_id);
     bodyFormData.append("photo", photo);
-    console.log(bodyFormData);
     const token = localStorage.getItem('token')
-    console.log(inputData)
-    console.log(token)
 
     axios.post(`https://rich-blue-scorpion-robe.cyclic.app/recipe/recipe`, bodyFormData, {
         headers: {
@@ -38,20 +35,17 @@ export default function InputMenu() {
         },
       })
       .then((res) => {
-        console.log(res);  
         setTimeout(()=>{
           navigate('/menu');
         },2000 )
         toast.success('berhasil input data')
       })
       .catch((err) => {
-        console.log(err);
         toast.error('failed input data')
       });
   };
   const onChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
-    console.log(inputData);
   };
   const onChangePhoto = (e) => {
     setPhoto(e.target.files[0]);
@@ -60,7 +54,6 @@ export default function InputMenu() {
         ...inputData,
         photo: URL.createObjectURL(e.target.files[0]),
       });
-    console.log(e.target.files);
   };
   return (
     <Fragment>

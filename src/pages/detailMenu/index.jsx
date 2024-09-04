@@ -16,22 +16,20 @@ export default function DetailMenu () {
 
   const getData = () => {
     const token = localStorage.getItem('token')
-    axios.get(`https://rich-blue-scorpion-robe.cyclic.app/recipe/${menuId}`, {
+    
+    axios.get(`http://localhost:3000/${menuId}`, {
       headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        console.log(res);
         setData(res.data.data)
       })
       .catch((err) => {
-        console.log(err);
       });
   };
 
   useEffect(() => {
-    console.log(menuId);
     getData();
   }, []);
   
